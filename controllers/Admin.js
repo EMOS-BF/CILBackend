@@ -8,7 +8,7 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const admin = new admin({
-          speudo: req.body.speudo,
+          pseudo: req.body.pseudo,
           mdp: hash
         });
         admin.save()
@@ -19,7 +19,7 @@ exports.signup = (req, res, next) => {
   };
 
   exports.login = (req, res, next) => {
-    admin.findOne({ speudo: req.body.speudo })
+    admin.findOne({ pseudo: req.body.pseudo })
         .then(admin => {
             if (!admin) {
                 return res.status(401).json({ message: 'Paire login/mot de passe incorrecte'});
