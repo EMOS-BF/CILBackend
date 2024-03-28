@@ -6,4 +6,4 @@ const statusSchema = mongoose.Schema({
         images: {type: Array, required: true},
 });
 
-module.exports = mongoose.model('Conseils', statusSchema);
+module.exports = mongoose.model('Status', statusSchema);
