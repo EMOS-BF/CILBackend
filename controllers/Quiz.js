@@ -12,7 +12,7 @@ exports.createQuiz = (req, res, next) => {
 
   exports.getOneQuiz = (req, res, next) => {
     quiz.findOne({ _id: req.params.id })
-      .then(conseil => res.status(200).json(conseil))
+      .then(quiz => res.status(200).json(quiz))
       .catch(error => res.status(404).json({ error }));
   };
 
@@ -30,6 +30,6 @@ exports.createQuiz = (req, res, next) => {
 
   exports.getAllQuiz = (req, res, next) => {
     quiz.find()
-      .then(conseils => res.status(200).json(conseils))
+      .then(quizs => res.status(200).json(quizs))
       .catch(error => res.status(400).json({ error }));
   }
