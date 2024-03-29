@@ -5,9 +5,9 @@ exports.createStatus = (req, res, next) => {
       ...req.body
     });
     newStatus.save()
-      .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+      .then(() => res.status(201).json({ message: "Objet enregistré !"}))
       .catch(error => res.status(400).json({ error }));
-      next();
+     
   };
 
   exports.getOneStatus = (req, res, next) => {
@@ -18,13 +18,13 @@ exports.createStatus = (req, res, next) => {
 
   exports.modifyOneStatus = (req, res, next) => {
     status.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-      .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+      .then(() => res.status(200).json({ message: "Objet modifié !"}))
       .catch(error => res.status(400).json({ error }));
   }
 
   exports.deleteStatus = (req, res, next) => {
     status.deleteOne({ _id: req.params.id })
-      .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+      .then(() => res.status(200).json({ message: "Objet supprimé !"}))
       .catch(error => res.status(400).json({ error }));
   }
 

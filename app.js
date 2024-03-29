@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const userRoutes = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const quizzRoutes = require('./routes/quiz');
 const conseilsRoutes = require('./routes/conseils');
 const statusRoutes = require('./routes/status');
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   });
   app.use('/api/conseils',conseilsRoutes);
   app.use('/api/quiz',quizzRoutes);
-  app.use('/api/auth',userRoutes);
-  app.use('api/status', statusRoutes);
+  app.use('/api/auth',adminRoutes);
+  app.use('/api/status', statusRoutes);
 
   module.exports = app;

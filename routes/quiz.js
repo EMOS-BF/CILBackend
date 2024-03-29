@@ -10,6 +10,6 @@ router.get('/:id',auth,stuffCtrl.getOneQuiz);
 //pour app mobile
 router.get('/mobile/:id',stuffCtrl.getAllQuiz);
 
-router.get('/',auth, stuffCtrl.getAll);
+router.get('/',auth, stuffCtrl.getAllQuiz);
 
 module.exports = router;

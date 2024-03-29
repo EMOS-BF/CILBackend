@@ -1,38 +1,36 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+const User = require('../models/Admin');
 
-const admin = require('../models/Admin');
-
-const jwt = require('jsonwebtoken');
-
-exports.signup = (req, res, next) => {
+exports.signup = (req,res,next) => {
     bcrypt.hash(req.body.password, 10)
-      .then(hash => {
-        const admin = new admin({
-          username: req.body.username,
-          password: hash
+    .then(hash =>{
+        const user = new User({
+            username: req.body.username,
+            password: hash
         });
-        admin.save()
-          .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-          .catch(error => res.status(400).json({ error }));
-      })
-      .catch(error => res.status(500).json({ error }));
-  };
+        user.save()
+        .then(()=> res.status(201).json({message: "utilisateur créer"}))
+        .catch(error => res.status(400).json({error}));
+    })
+    .catch(error => res.status(500).json({error}));
+};
 
-  exports.login = (req, res, next) => {
-    admin.findOne({ username: req.body.username })
-        .then(admin => {
-            if (!admin) {
-                return res.status(401).json({ message: 'Paire login/mot de passe incorrecte'});
+exports.login = (req, res, next) => {
+    User.findOne({ username: req.body.username })
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({ error: 'Utilisateur non trouvé !' });
             }
-            bcrypt.compare(req.body.password, admin.password)
+            bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
-                        return res.status(401).json({ message: 'Paire login/mot de passe incorrecte' });
+                        return res.status(401).json({ error: 'Mot de passe incorrect !' });
                     }
                     res.status(200).json({
-                        adminId: admin._id,
+                        userId: user._id,
                         token: jwt.sign(
-                            { adminId: admin._id },
+                            { userId: user._id },
                             'RANDOM_TOKEN_SECRET',
                             { expiresIn: '24h' }
                         )
